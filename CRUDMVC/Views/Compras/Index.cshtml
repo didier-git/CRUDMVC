@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Compras</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,11 +12,25 @@
 
 <div style="display:flex,inline">
     <h4>Filtar por Mes y año</h4>
+    <form >
     <label for="Mes" >Mes</label>
-    <input name="Mes" type="month"/>
+    <input id="datapicker" name="Mes" type="month"/>
+    </form>
 </div>
+
+<div style="display:flex,inline">
+ <h4>Filtrar por lugar de la compra</h4>
+ <form>
+     <select id="select" name="selectLugar">
+         <option value="value"></option>
+     </select>
+ </form>
+
+</div>
+
 <br />
-<table class="table">
+
+<table id="TablaCompras" class="table">
     <thead>
         <tr>
             <th>
@@ -34,7 +48,9 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="bodyTable">
+
+
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -58,3 +74,8 @@
 }
     </tbody>
 </table>
+
+
+
+
+

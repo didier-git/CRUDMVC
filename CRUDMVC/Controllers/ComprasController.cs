@@ -27,13 +27,14 @@ namespace CRUDMVC.Controllers
                           Problem("Entity set 'DataContext.Compras'  is null.");
         }
 
-        public JsonResult CompraPorFecha(DateTime fecha)
+        public JsonResult CompraPorFecha(string fechaRequest)
         {
-            var compras = _context.Compras.ToList().Where(c=> c.FechaDeCompra.ToString()==fecha.ToString());
+            var fecha = DateTime.Parse(fechaRequest).Month;
+            var compras = _context.Compras.Where(c=>c.FechaDeCompra.Month== fecha);
 
             return Json(compras);
         }
-
+        
         // GET: Compras/Details/5
         public async Task<IActionResult> Details(int? id)
         {
