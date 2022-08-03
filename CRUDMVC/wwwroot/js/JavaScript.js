@@ -26,6 +26,21 @@ $(document).ready(function() {
                 });
         });
 
+        $(document).on("select", ".LugarOpcion", function () {
+
+                var lugar = (".LugarOpcion").val;
+
+                var response = $.ajax({
+                    method: "POST",
+                    url: "/Compras/ComprasPorLugar",
+                    data: { lugar: lugar }
+                }).done(function (data) {
+                        renderCompras(data);
+                });
+
+
+        });
+
 
    
 

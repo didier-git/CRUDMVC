@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    List<string> LugaresDeCompra = ViewBag.lugares;
 }
 
 <h1>Compras</h1>
@@ -20,9 +21,21 @@
 
 <div style="display:flex,inline">
  <h4>Filtrar por lugar de la compra</h4>
- <form>
+    @{
+        var label = "-------";
+    }
+    <form >
      <select id="select" name="selectLugar">
-         <option value="value"></option>
+        <optgroup label="@label">
+
+            <option selected>--------</option>
+             @foreach (var item in LugaresDeCompra)
+         {
+             <option id="@item">@item</option>
+         }
+        </optgroup>
+         
+        
      </select>
  </form>
 

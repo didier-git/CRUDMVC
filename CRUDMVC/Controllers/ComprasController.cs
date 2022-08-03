@@ -19,18 +19,52 @@ namespace CRUDMVC.Controllers
             _context = context;
         }
 
+        // GET: Compras/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Compras/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Descripcion,FechaDeCompra,Monto,LugarDeCompra")] Compra compra)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(compra);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(compra);
+        }
+
+
+
         // GET: Compras
         public async Task<IActionResult> Index()
         {
-              return _context.Compras != null ? 
+            var lugares = await _context.Compras.Select(c => c.LugarDeCompra).Distinct().ToListAsync();
+            ViewBag.Lugares = lugares;
+
+              return await _context.Compras.ToListAsync() != null ? 
                           View(await _context.Compras.ToListAsync()) :
                           Problem("Entity set 'DataContext.Compras'  is null.");
         }
 
-        public JsonResult CompraPorFecha(string fechaRequest)
+        public async Task<JsonResult> CompraPorFecha(string fechaRequest)
         {
             var fecha = DateTime.Parse(fechaRequest).Month;
-            var compras = _context.Compras.Where(c=>c.FechaDeCompra.Month== fecha);
+            var compras = await _context.Compras.Where(c=>c.FechaDeCompra.Month== fecha).ToListAsync();
+
+            return Json(compras);
+        }
+
+        public async Task<JsonResult> ComprasPorLugar(string lugar)
+        {
+            var compras = await _context.Compras.Where(c=> c.LugarDeCompra == lugar).ToListAsync();
 
             return Json(compras);
         }
@@ -53,27 +87,7 @@ namespace CRUDMVC.Controllers
             return View(compra);
         }
 
-        // GET: Compras/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Compras/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,FechaDeCompra,Monto,LugarDeCompra")] Compra compra)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(compra);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(compra);
-        }
+      
 
         // GET: Compras/Edit/5
         public async Task<IActionResult> Edit(int? id)
