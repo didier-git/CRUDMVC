@@ -26,17 +26,29 @@ $(document).ready(function() {
                 });
         });
 
-        $(document).on("select", ".LugarOpcion", function () {
+        $(document).on("change", "#select", function () {
 
-                var lugar = (".LugarOpcion").val;
-
-                var response = $.ajax({
+            var lugar = $(this).val();
+            if (lugar != "Todos") {
+                 $.ajax({
                     method: "POST",
                     url: "/Compras/ComprasPorLugar",
                     data: { lugar: lugar }
                 }).done(function (data) {
-                        renderCompras(data);
+                    renderCompras(data);
                 });
+
+            } else {
+                 $.ajax({
+                    method: "GET",
+                    url: "/Compras/IndexJ"
+                }).done(function (data) {
+                    renderCompras(data);
+                });
+            }
+
+
+               
 
 
         });
@@ -70,8 +82,8 @@ function renderCompras(data) {
                         <td>${monto}</td>
                         <td>${data[i].lugarDeCompra}</td>
                         <td>
-                        <a href="Compras/Edit/${data[i].id}">Edit</a> 
-                        <a href="Compras/Details/${data[i].id}">Details</a>
+                        <a href="Compras/Edit/${data[i].id}">Edit</a> |
+                        <a href="Compras/Details/${data[i].id}">Details</a> |
                         <a href="Compras/Delete/${data[i].id}">Delete</a>
                         </td>
                     </tr>`;

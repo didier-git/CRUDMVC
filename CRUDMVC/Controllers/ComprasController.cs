@@ -54,6 +54,17 @@ namespace CRUDMVC.Controllers
                           Problem("Entity set 'DataContext.Compras'  is null.");
         }
 
+        public async Task<JsonResult> IndexJ()
+        {
+            //var lugares = await _context.Compras.Select(c => c.LugarDeCompra).Distinct().ToListAsync();
+            //ViewBag.Lugares = lugares;
+            var compras = await _context.Compras.ToListAsync();
+            return Json(compras); 
+                 
+        }
+
+
+
         public async Task<JsonResult> CompraPorFecha(string fechaRequest)
         {
             var fecha = DateTime.Parse(fechaRequest).Month;

@@ -22,17 +22,18 @@
 <div style="display:flex,inline">
  <h4>Filtrar por lugar de la compra</h4>
     @{
-        var label = "-------";
+        var label = "Sin lugar";
+        LugaresDeCompra.Add(label);
+        var LabelOptgroup = "Sin lugar";
     }
     <form >
-     <select id="select" name="selectLugar">
-        <optgroup label="@label">
-
-            <option selected>--------</option>
+     <select id="select" >
+        <optgroup label="@LabelOptgroup" >
+            <option selected>Todos</option>
              @foreach (var item in LugaresDeCompra)
-         {
-             <option id="@item">@item</option>
-         }
+              {
+                <option>@item</option>   
+              }
         </optgroup>
          
         
