@@ -63,6 +63,31 @@ namespace CRUDMVC.Controllers
                  
         }
 
+        public async Task<JsonResult> ComprasPorFiltro(string fecha, string lugar)
+        {
+            List<Compra> compras = new();
+            int fechaD;
+            if ((fecha != "" && fecha != null) && lugar != "Sin lugar")
+            {
+                fechaD = DateTime.Parse(fecha).Month;
+                compras = await _context.Compras.Where(c => c.FechaDeCompra.Month == fechaD && c.LugarDeCompra == lugar).ToListAsync();
+
+            }else if((fecha != "" && fecha != null) && lugar == "Sin lugar")
+            {
+                fechaD = DateTime.Parse(fecha).Month;
+                compras = await _context.Compras.Where(c=> c.FechaDeCompra.Month == fechaD).ToListAsync();
+            }
+            else if (lugar !="Sin lugar" && (fecha == ""|| fecha == null))
+            {
+                compras = await _context.Compras.Where(c=> c.LugarDeCompra==lugar).ToListAsync();
+            }
+            else
+            {
+                compras = await _context.Compras.ToListAsync();
+            }
+            
+            return Json(compras);
+        }
 
 
         public async Task<JsonResult> CompraPorFecha(string fechaRequest)
@@ -77,6 +102,14 @@ namespace CRUDMVC.Controllers
         {
             var compras = await _context.Compras.Where(c=> c.LugarDeCompra == lugar).ToListAsync();
 
+            return Json(compras);
+        }
+
+        public async Task<JsonResult> ComprasPorLugarFecha(string fecha, string lugar, string? todos)
+        {
+            var fechaD = DateTime.Parse(fecha).Month;
+            var compras = await _context.Compras.Where(c => c.FechaDeCompra.Month == fechaD && c.LugarDeCompra == lugar).ToListAsync();
+            
             return Json(compras);
         }
         

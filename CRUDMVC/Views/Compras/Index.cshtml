@@ -10,37 +10,42 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<h4>Filtros</h4>
+<br />
+<div class="ContainerFiltros">
+    <div>
+        <div >   
+            <form style="display:flex,inline">
+                <label for="Mes"><span>Por Mes:</span></label>
+                <input id="datapicker" name="Mes" type="month"  />
+            </form>
+        </div>
+    </div>
+    <br />
 
-<div style="display:flex,inline">
-    <h4>Filtar por Mes y año</h4>
-    <form >
-    <label for="Mes" >Mes</label>
-    <input id="datapicker" name="Mes" type="month"/>
-    </form>
+    <div >
+        @{
+            var LabelOptgroup = "Sin lugar";
+        }
+        <form style="display:flex,inline">
+            <label><span>Por Lugar:</span></label>
+            <select id="select">
+                <optgroup label="@LabelOptgroup">
+                    <option>Todos</option>
+                    <option selected>Sin lugar</option>
+                    @foreach (var item in LugaresDeCompra)
+                    {
+                        <option>@item</option>
+                    }
+                </optgroup>
+
+
+            </select>
+        </form>
+    </div>
+
 </div>
 
-<div style="display:flex,inline">
- <h4>Filtrar por lugar de la compra</h4>
-    @{
-        var label = "Sin lugar";
-        LugaresDeCompra.Add(label);
-        var LabelOptgroup = "Sin lugar";
-    }
-    <form >
-     <select id="select" >
-        <optgroup label="@LabelOptgroup" >
-            <option selected>Todos</option>
-             @foreach (var item in LugaresDeCompra)
-              {
-                <option>@item</option>   
-              }
-        </optgroup>
-         
-        
-     </select>
- </form>
-
-</div>
 
 <br />
 
@@ -65,27 +70,28 @@
     <tbody id="bodyTable">
 
 
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaDeCompra)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Monto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LugarDeCompra)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaDeCompra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LugarDeCompra)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

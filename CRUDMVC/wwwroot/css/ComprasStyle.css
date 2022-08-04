@@ -1,0 +1,8 @@
+﻿.ContainerFiltros{
+    display:flex;
+    align-content:center;
+    gap:10px
+}
+span{
+    font-style:italic;
+}

@@ -1,60 +1,77 @@
 ﻿
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     var fecha;
+    var lugar;
 
-        $(document).on("change", "#datapicker", function() {
+    $(document).on("change", "#datapicker", function () {
 
-            fecha = $("#datapicker").val();
-
+        lugar = $("#select").val(); // Sin lugar
+        fecha = $(this).val();//'2022/07'
 
             var response = $.ajax
                 ({
                     method: "POST",
-                    url: '/Compras/CompraPorFecha',
-                    data: { fechaRequest: fecha }
+                    url: '/Compras/ComprasPorFiltro',
+                    data: {
+                        fecha: fecha,
+                        lugar: lugar
+                    }
                 }).done(function (data) {
                     if (data.length != 0) {
-                         renderCompras(data);
+                        renderCompras(data);
                     } else {
 
-                        $("#bodyTable").html("<p>No hay compras en esta fecha</p>");
+                        $("#bodyTable").html("<p>No hay compras en los filtros seleccionados</p>");
                     }
 
 
                 });
-        });
 
-        $(document).on("change", "#select", function () {
 
-            var lugar = $(this).val();
-            if (lugar != "Todos") {
-                 $.ajax({
+       
+
+
+       
+    });
+
+    $(document).on("change", "#select", function () {
+
+        var lugar = $(this).val();
+        var fecha = $("#datapicker").val();
+        if (lugar != "Todos") {
+            
+                $.ajax({
                     method: "POST",
-                    url: "/Compras/ComprasPorLugar",
-                    data: { lugar: lugar }
+                    url: "/Compras/ComprasPorFiltro",
+                    data: { fecha : fecha,lugar: lugar }
                 }).done(function (data) {
-                    renderCompras(data);
+                    if (data.length != 0) {
+                        renderCompras(data);
+                    } else {
+                        $("#bodyTable").html("<p>No hay compras segun los filtros seleccionados</p>");
+                    }
+                    
                 });
 
-            } else {
-                 $.ajax({
-                    method: "GET",
-                    url: "/Compras/IndexJ"
-                }).done(function (data) {
-                    renderCompras(data);
-                });
-            }
+        } else {
+            $.ajax({
+                method: "GET",
+                url: "/Compras/IndexJ"
+            }).done(function (data) {
+                renderCompras(data);
+            });
+        }
 
 
-               
 
 
-        });
+
+    });
 
 
-   
+
 
 
 });
@@ -62,10 +79,10 @@ $(document).ready(function() {
 function renderCompras(data) {
 
     var datos;
-   
-    
 
-    for (let i = 0; i < data.length;i++) {
+
+
+    for (let i = 0; i < data.length; i++) {
 
         let date = new Date(data[i].fechaDeCompra);
 
@@ -74,7 +91,7 @@ function renderCompras(data) {
         var fechaFinal = fechaEstandar.replace(/-/g, '/');
 
         var monto = parseFloat(data[i].monto);
-        
+
 
         datos += `<tr>
                         <td>${data[i].descripcion}</td>
@@ -93,5 +110,5 @@ function renderCompras(data) {
 }
 
 
-        
-   
+
+
