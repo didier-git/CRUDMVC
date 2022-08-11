@@ -1,0 +1,38 @@
+﻿@model CRUDMVC.Models.Usuario
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registro</title>
+    <link rel="stylesheet" href="~/css/ComprasStyle.css"/>
+</head>
+<body>
+
+    
+    <section class="ContainerInicioSesion">
+        <div>
+            <h1>Registrarse</h1>
+            <form class="ContainerForm" asp-action="Registro">
+               <label asp-for="UsuarioName">Usuario</label>
+               <input asp-for="UsuarioName" type="text" />
+               <span asp-validation-for="UsuarioName"></span>
+               <label asp-for="password">Contraseña</label>
+               <input asp-for="password" type="password" />
+               <span asp-validation-for="password"></span>
+               <button>Registrarse</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
