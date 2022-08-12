@@ -12,7 +12,6 @@ namespace CRUDMVC.Context
         }
 
         public DbSet<Compra> Compras { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
 
 
 
