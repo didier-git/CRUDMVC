@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Index";
     List<string> LugaresDeCompra = ViewBag.lugares;
-    List<int> anos = ViewBag.anos;
 }
 
 <h1>Compras</h1>
@@ -35,26 +34,6 @@
                     <option>Todos</option>
                     <option selected>Sin lugar</option>
                     @foreach (var item in LugaresDeCompra)
-                    {
-                        <option>@item</option>
-                    }
-                </optgroup>
-
-
-            </select>
-        </form>
-    </div>
-
-     <div >
-        @{
-            var LabelOpt = "Sin año";
-        }
-        <form style="display:flex,inline">
-            <label><span>Por año:</span></label>
-            <select id="selectAno">
-                <optgroup label="@LabelOpt">
-                    <option selected>Sin año</option>
-                    @foreach (var item in anos)
                     {
                         <option>@item</option>
                     }

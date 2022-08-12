@@ -47,9 +47,7 @@ namespace CRUDMVC.Controllers
         public async Task<IActionResult> Index()
         {
             var lugares = await _context.Compras.Select(c => c.LugarDeCompra).Distinct().ToListAsync();
-            var anos = await _context.Compras.Select(c=>c.FechaDeCompra.Date.Year).Distinct().ToListAsync();    
             ViewBag.Lugares = lugares;
-            ViewBag.Anos = anos;
 
               return await _context.Compras.ToListAsync() != null ? 
                           View(await _context.Compras.ToListAsync()) :
@@ -64,8 +62,6 @@ namespace CRUDMVC.Controllers
             return Json(compras); 
                  
         }
-
-        
 
         public async Task<JsonResult> ComprasPorFiltro(string fecha, string lugar)
         {
