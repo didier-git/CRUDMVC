@@ -1,0 +1,32 @@
+﻿@model CRUDMVC.Models.Usuario
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registro</title>
+    <link rel="stylesheet" href="~/css/Formularios.css"/>
+</head>
+<body>
+
+    <section>
+            <form class="ContainerForm" asp-action="Registro" method="post">
+                  <label asp-for="UsuarioName">Usuario</label>
+                  <input asp-for="UsuarioName" placeholder="Escriba el usuario que desea"/>
+                  <span asp-validation-for="UsuarioName"></span>
+                  <label asp-for="password">Contraseña</label>
+                  <input asp-for="password" placeholder="Escriba la contraseña que desea" />
+                  <span asp-validation-for="password"></span>
+                  <div>
+                      <button>Registrarse</button>
+                  </div>
+            </form>
+    </section>
+
+
+</body>
+</html>

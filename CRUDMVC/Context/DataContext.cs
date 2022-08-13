@@ -6,12 +6,13 @@ namespace CRUDMVC.Context
     public class DataContext : DbContext
     {
 
-        public DataContext(DbContextOptions<DataContext> options):base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
         }
 
         public DbSet<Compra> Compras { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
 
 

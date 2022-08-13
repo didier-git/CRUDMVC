@@ -1,0 +1,21 @@
+﻿
+.ContainerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    
+}
+
+input,button{
+    width:300px;
+    height:35px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 100px;
+    left: 40px;
+}
